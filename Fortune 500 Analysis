@@ -1,4 +1,4 @@
---This analysis utilized the following Fortune 500 dataset where the revenues are counted in billion:
+--This analysis utilized the following Fortune 500 dataset where the revenues are in billions:
 
 CREATE TABLE fortune_companies (
     company_id INTEGER PRIMARY KEY,
@@ -63,8 +63,8 @@ VALUES
 SELECT *
 FROM fortune_companies;
 
-/* Assign each company as "large enterprise", "mid-market enterprise", or "small business" 
-based on the employee size and order each company by the amount of employees in descending order */
+/* Designate each company as "large enterprise", "mid-market enterprise", or "small business" 
+based on the employee size, and order each company by the amount of employees in descending order */
 
 SELECT company_name, employees,
 CASE WHEN employees > 2000 THEN "large enterprise"
@@ -82,7 +82,7 @@ FROM fortune_companies
 GROUP BY industry
 HAVING total_revenue > 1000;
 
---Which industries have at least an average of 15 paid time off days?
+--Which industries offer at least an average of 15 paid time off days?
 
 SELECT industry, ROUND(AVG(paid_time_off_days)) AS avg_time_off
 FROM fortune_companies
@@ -90,7 +90,7 @@ GROUP BY industry
 HAVING avg_time_off >= 15
 ORDER BY avg_time_off DESC;
 
---Which companies have healthcare benefits and at least 15 paid time off days?
+--Which companies offer healthcare benefits and at least 15 paid time off days?
 
 SELECT *
 FROM fortune_companies
