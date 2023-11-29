@@ -1,0 +1,51 @@
+/* There is a table with famous actors. There is another table with movies. Which movies were these famous actors in?*/
+
+CREATE TABLE people (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT);
+    
+INSERT INTO people (fullname) VALUES ("Adam Sandler");
+INSERT INTO people (fullname) VALUES ("Will Smith");
+INSERT INTO people (fullname) VALUES ("Jennifer Lawrence");
+INSERT INTO people (fullname) VALUES ("Johnny Depp");
+INSERT INTO people (fullname) VALUES ("Jackie Chan");
+INSERT INTO people (fullname) VALUES ("Nicolas Cage");
+INSERT INTO people (fullname) VALUES ("Margot Robbie");
+INSERT INTO people (fullname) VALUES ("Anne Hathaway");
+INSERT INTO people (fullname) VALUES ("Will Ferrell");
+INSERT INTO people (fullname) VALUES ("Tom Hanks");
+INSERT INTO people (fullname) VALUES ("George Takei");
+INSERT INTO people (fullname) VALUES ("Julia Roberts");
+INSERT INTO people (fullname) VALUES ("Robin Williams");
+INSERT INTO people (fullname) VALUES ("Tom Cruise");
+INSERT INTO people (fullname) VALUES ("Rachel Zegler");
+
+CREATE table movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    name TEXT);
+    
+INSERT INTO movies (person_id, name) VALUES (1, "I Now Pronounce You Chuck & Larry");
+INSERT INTO movies (person_id, name) VALUES (1, "The Longest Yard");
+INSERT INTO movies (person_id, name) VALUES (1, "Grown Ups");
+INSERT INTO movies (person_id, name) VALUES (2, "The Pursuit of Happyness");
+INSERT INTO movies (person_id, name) VALUES (2, "Men in Black");
+INSERT INTO movies (person_id, name) VALUES (2, "I Am Legend");
+INSERT INTO movies (person_id, name) VALUES (3, "The Hunger Games");
+INSERT INTO movies (person_id, name) VALUES (4, "Charlie and the Chocolate Factory");
+INSERT INTO movies (person_id, name) VALUES (5, "Rush Hour");
+INSERT INTO movies (person_id, name) VALUES (6, "National Treasure");
+INSERT INTO movies (person_id, name) VALUES (7, "Barbie");
+INSERT INTO movies (person_id, name) VALUES (8, "The Devil Wears Prada");
+INSERT INTO movies (person_id, name) VALUES (9, "Elf");
+INSERT INTO movies (person_id, name) VALUES (10, "Forrest Gump");
+INSERT INTO movies (person_id, name) VALUES (11, "Star Trek");
+INSERT INTO movies (person_id, name) VALUES (12, "Pretty Woman");
+INSERT INTO movies (person_id, name) VALUES (13, "Night at the Museum");
+INSERT INTO movies (person_id, name) VALUES (14, "Collateral");
+INSERT INTO movies (person_id, name) VALUES (15, "The Hunger Games: The Ballad of Songbirds & Snakes");
+
+SELECT people.fullname, movies.name
+FROM people
+LEFT OUTER JOIN movies
+ON people.id = movies.person_id
