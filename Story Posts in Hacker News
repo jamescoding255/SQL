@@ -1,0 +1,98 @@
+--Use SQL to analyze a table named 'hacker news' that contains stories from Hacker News since its launch in 2007.
+--The table has the following columns:
+--title: the title of the story
+--user: the user who submitted the story
+--score: the score of the story
+--timestamp: the time of the story
+--url: the link of the story
+
+/*
+SELECT * 
+FROM hacker_news;
+*/
+
+
+--Find the top five most popular Hacker News stories
+SELECT title, score
+FROM hacker_news
+ORDER BY score DESC
+LIMIT 5;
+
+--Does a small percent of Hacker news submitters have the majority of the points? Find the total score of all stories.
+
+SELECT SUM(score)
+FROM hacker_news;
+
+--The total score of all stories is 6366.
+
+--Find users who have total scores above 200
+SELECT user, SUM(score)
+FROM hacker_news
+GROUP BY user
+HAVING SUM(score) > 200;
+
+--amirkhella:   309
+--dmmalam:      304
+--metafunctor:  282
+--vxNsr:        517
+
+--Find the percentage of those four scores relative to the total score.
+
+SELECT ROUND(((309 + 304 + 282 + 517) / 6366.0), 2);
+
+--Those four users have 22% of the total scores.
+
+--Show the amount of times each offending user has posted the following url: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+SELECT user, COUNT(url) as number_of_times_posted
+FROM hacker_news
+WHERE url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+GROUP BY user; 
+
+--Categorize each story based on its source, and display the frequency of each source.
+
+SELECT 
+  CASE
+    WHEN url LIKE '%github.com%' THEN 'GitHub'
+    WHEN url LIKE '%medium.com%' THEN 'Medium'
+    WHEN url LIKE '%nytimes.com%' THEN 'New York Times'
+    ELSE 'Other'
+  END AS 'Source',
+  COUNT(*)
+FROM hacker_news
+GROUP BY 1;
+
+--What is the best time of the day to post a story on Hacker News?
+
+SELECT timestamp
+FROM hacker_news
+LIMIT 10;
+
+--Use strftime() to return a formatted date.
+SELECT 
+  timestamp,
+  strftime('%H', timestamp)
+FROM hacker_news
+GROUP BY 1
+LIMIT 20;
+
+--Find the hour with the highest average scores
+--Return the following columns:
+--The hours of the timestamp
+--The average score for each hour
+--The count of stories for each hour
+
+SELECT 
+  strftime('%H', timestamp) AS hour, 
+  ROUND(AVG(score)) AS average_score, 
+  COUNT(*) as number_of_stories
+FROM hacker_news
+GROUP BY 1
+ORDER BY 2 DESC;
+
+--The the top three hours with the highest average scores are 18:00, 07:00, and 19:00. 
+
+
+
+
+
