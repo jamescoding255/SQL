@@ -1,0 +1,80 @@
+--Use SQL to analyze rising trends in the startup world.
+
+SELECT *
+FROM startups;
+
+--There are ten columns.
+
+--Calculate the total number of companies in the table.
+
+SELECT COUNT(*)
+FROM startups;
+
+--There are 70 companies in the table.
+
+--Calculate the total value of all companies in this table.
+
+SELECT SUM(valuation)
+FROM startups;
+
+--The total value of all companies in this table is $974,455,790,000
+
+--Find the highest amount of money raised by a startup.
+
+SELECT MAX(raised)
+FROM startups;
+
+--The highest amount of money raised by a startup is $11,500,000,000.
+
+--Find the maximum amound of money raised during the 'Seed' stage.
+
+SELECT MAX(raised)
+FROM startups
+WHERE stage = 'Seed';
+
+--The maximum amount of money raised by a startup in the 'Seed' stage is $1,800,000.
+
+--What year was the oldest company in the list founded?
+SELECT MIN(founded)
+FROM startups;
+
+--The oldest company was founded in 1994.
+
+--Find the average valuation of all companies in the list.
+SELECT AVG(valuation)
+FROM startups;
+
+--The average valuation of all companies in the list is $15,974,685,081.9672
+
+--Find the average valuation of all companies in each category, round the averages to two decimal places, and order the averages in descending order.
+
+SELECT category, ROUND(AVG(valuation), 2) AS average_valuation
+FROM startups
+GROUP BY category
+ORDER BY average_valuation DESC;
+
+--Find the total number of companies in each category. 
+
+SELECT category, COUNT(*) AS total_number
+FROM startups
+GROUP BY category;
+
+--Which categories have more than three companies in them?
+
+SELECT category, COUNT(*) AS total_number
+FROM startups
+GROUP BY category
+HAVING total_number > 3;
+
+--What is the average size of a startup in each location?
+
+SELECT location, AVG(employees) AS average_amount_of_employees
+FROM startups
+GROUP BY location;
+
+--Which locations have an average startup size above 500?
+
+SELECT location, AVG(employees) AS average_amount_of_employees
+FROM startups
+GROUP BY location
+HAVING average_amount_of_employees > 500;
